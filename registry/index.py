@@ -87,10 +87,10 @@ def update_index_images(namespace, repository, data):
 
 def _get_repositories(namespace):
     repos_path = store.repositories_path(namespace)
-    if repos_path[-1] != '/':
-        repos_path = repos_path + '/'
+    if repos_path[-1] == '/':
+        repos_path = repos_path[:-1]
     for fname in store.list_directory(repos_path):
-        if '/' in fname[len(repos_path):]:   # subdir of repository
+        if '/' in fname[len(repos_path) + 1:]:   # subdir of repository
             continue
         repo_name = fname.split('/').pop()
         yield repo_name
